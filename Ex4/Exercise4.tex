@@ -1,0 +1,213 @@
+
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[12pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+
+\usepackage[T1]{fontenc}
+\usepackage[font=footnotesize,labelfont=bf]{caption}
+\usepackage{color}
+\usepackage{graphicx}
+%\usepackage{subfigure}
+%\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{booktabs,array}
+\usepackage{etoolbox}
+\usepackage{import}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{fullpage}
+\usepackage{url}
+
+\newenvironment{exercise}[2][Task]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\newcommand{\cv}{\mathbf{c}}
+\newcommand{\xv}{\mathbf{x}}
+\newcommand{\tv}{\mathbf{t}}
+\newcommand{\pv}{\mathbf{p}}
+\newcommand{\Km}{\mathbf{K}}
+\newcommand{\Tm}{\mathbf{T}}
+\newcommand{\Rm}{\mathbf{R}}
+\newcommand{\Mm}{\mathbf{M}}
+\newcommand{\IIm}{\mathbf{I}}
+\newcommand{\Wm}{\mathbf{W}}
+\newcommand{\Pm}{\mathbf{P}}
+\newcommand{\zerov}{\mathbf{0}}
+\DeclareMathOperator{\atan2}{atan2}
+\DeclareMathOperator{\trace}{trace}
+%\renewcommand{\thesection}{}% Remove section references...
+%\renewcommand{\thesubsection}{\arabic{subsection}}%... from subsections
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{DATA.ML.300 Computer Vision\\ Exercise Round 4}
+\date{\vspace{-5mm} January 26, 2021}
+%\author{The Author}
+\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+%\section{First section}
+
+%Your text goes here.
+\noindent For these exercises you will need Python. \textbf{Return your answers as a pdf along with your modified code} to Moodle. Exercise points will be granted after a teaching assistant has checked your answers. Returns done before the solution session will result in maximum of 4 points, whereas returns after the session will result in maximum of 1 point.
+
+
+\begin{exercise}{1}
+    Hough transform and parameter spaces (Pen \& paper) (1 point)
+    
+    \noindent \textit{a)} We have two pixels of an image in the (x, y)-plane:
+    $(x_0, y_0) = (-2, 1)$ and $(x_1, y_1) = (2, 5)$.
+    Plot the lines that these points create in Cartesian parameter space. What is the point of intersection $(m', \ b')$?
+    \newline
+    \noindent \textit{b)} Plot the sinusoids that these points create in Polar coordinate parameter space. What is the point of intersection $(\theta', \ \rho')$ when $-\frac{\pi}{2}\leq\theta\leq \frac{\theta}{2}?$
+    \newline
+    \noindent \textit{c)} What advantages does the Polar coordinate form have over Cartesian coordinate form?
+    
+    \vspace{1mm}
+
+
+\begin{exercise}{2}
+	Robust line fitting using RANSAC. (Programming exercise) (1 point)
+	
+	\noindent Open \texttt{RobustLineFitting}, which plots a set of points $(x_i,y_i), i=1,\ldots,n$, and estimate a line that best fits to these points by implementing a RANSAC approach as explained in the lecture slides. Your task is to implement the missing code stated in the comments and observe the results.
+	\textbf{Return the output plot and your version of RobustLineFitting.}
+	
+	\iffalse
+	\begin{itemize}
+		\item[\textit{1)}] Repeat the following steps $N$ times (set $N$ large enough according to the guidelines given in the lecture):
+		\begin{itemize}
+			\item Draw 2 points uniformly at random from set $\{(x_i,y_i)\}_i$.
+			\item Fit a line to these 2 points.
+			\item Determine the inliers to this line among the remaining points (i.e.\ points whose distance to the line is less than a suitably set threshold $t$).
+		\end{itemize}
+		\item[\textit{2)}] Take the line with most inliers from previous stage and refit it using total least squares fitting to all inliers.
+		\item[\textit{3)}] Plot the estimated line and all the points $(x_i,y_i)$ to the same figure and report the estimated values of the line's coefficients.
+	\end{itemize}
+	\fi
+\end{exercise}
+
+
+\begin{exercise}{3}
+Matching Harris corner points. (Programming exercise) (1 point)
+
+\noindent Open \texttt{HarrisMatching} and see the instructions in the comments of the source code. The example detects Harris corners from two images of the same scene, extracts image patches of size $15\!\times\!15$ pixels around each corner point and matches mutually nearest neighbors using the sum of squared differences (SSD) similarity measure. The SSD measure for two image patches, $f$ and $g$, is defined as follows
+\begin{equation}
+SSD(f,g)=\sum_{k,l} (g(k,l)-f(k,l))^2
+\end{equation}
+so that the larger the SSD value the more dissimilar the patches are.\\ %SSD is zero for identical patches.\\
+%In this task you will need to extract Harris corners from two views of the same scene and match them using normalized cross-correlation. 
+   % 
+   
+\vspace{1.5mm}
+\noindent   Do the task (a) below and answer question (b). \textbf{Return also the output images and your version of HarrisMatching.}\\
+
+\noindent \textit{a)} Implement the matching of mutually nearest neighbors using normalized cross-correla-tion (NCC) as the similarity measure instead of SSD. For two image patches of similar size NCC is defined as follows:
+\begin{equation}
+NCC(f,g)=\frac{\sum_{k,l}(g(k,l)-\bar{g})(f(k,l)-\bar{f})}{\sqrt{\sum_{k,l}(g(k,l)-\bar{g})^2\sum_{k,l}(f(k,l)-\bar{f})^2}},
+\end{equation}
+where $\bar{g}$ and $\bar{f}$ are the mean intensity values of patches $g$ and $f$. The values of NCC are always between -1 and 1, and the larger the value the more similar the patches are.\\
+
+
+\noindent \textit{b)} Which one of the two similarity measures performs better in this case and why?
+\end{exercise}
+
+\vspace{1mm}
+
+
+\begin{exercise}{4} 
+Matching SURF regions. (Programming exercise) (1 point)
+
+\noindent Run the file  \texttt{SURFmatching.m} which matches SURF interest regions by using the SURF regions provided by OpenCV. SURF is quite similar to SIFT which was presented in lecture slides. In this implementation the descriptor vectors for the local regions have 64 elements (instead of 128 in SIFT) but Euclidean distance can still be used as a similarity measure in descriptor space. See the comments in the source code and do the following tasks. \textbf{Return also the output images and your version of SURFmatching.}\\
+
+\noindent
+\textit{a)} Sort the given nearest neighbor matches in ascending order based on the \emph{nearest neighbor distance ratio} (NNDR), which is defined
+\begin{equation*}
+	NNDR = \frac{d_{1}}{d_{2}} = \frac{||D_{A} - D_{B}||}{||D_{A} - D_{C}||}
+\end{equation*}
+where $d_{1}$ and $d_{2}$ are the nearest and second nearest neighbor distances, $D_{A}$ is the target descriptor, and $D_{B}$ and $D_{C}$ are its closest two neighbors.
+
+\noindent
+Report the number of correct correspondences among the top 5 matches based on NNDR and compare it to the case where ordering is based on nearest neighbor distance. \\
+
+\noindent
+\textit{b)} What are the benefits of using SURF regions instead of Harris corners? In what kind of cases Harris corners may still be better than SURF and why?
+\end{exercise}
+
+
+\iffalse
+%\vspace{3mm}
+%\noindent Tasks continue on the next page...
+%\newpage
+\begin{exercise}{3}
+Scale-space blob detection. (1 point) \\(Note: This task is more laborious than the previous ones.)
+
+\noindent Run the example script \texttt{evaluateScaleSpaceBlobs.m} which illustrates pre-computed blob detections obtained with a similar procedure as implemented in SIFT and described below. Here the task is to replace the pre-computed regions with regions computed by your own implementation. The result does not need to be exactly the same as the pre-computed one but similar. In summary, implement the scale-space blob detector %and apply it to example images (\texttt{boatA.png}, \texttt{boatB.png}) 
+ as follows:\\
+\textit{a)} Generate a Laplacian of Gaussian filter. (You can set $\sigma=0.5$.)\\
+\textit{b)} Build a Laplacian scale space, starting with some initial scale and going for $n$ iterations:\\
+\indent - filter image with scale-normalized Laplacian at current scale\\
+\indent - save square of Laplacian response for current level of scale space\\
+\indent - increase scale by factor $k$\\
+\textit{c)} Perform non-maximum suppression in scale space.\\
+\textit{d)} Display resulting circles at their characteristic scales.
+
+\vspace{1.5mm}
+\noindent Apply the blob detector to example images \texttt{boat1.png} and \texttt{boat6.png} as shown in the example script. Can you identify some corresponding regions?
+
+\vspace{1.5mm}
+\noindent \textit{Note 1:} Suitable values for $k$ and $n$ could be $k=1.19$ and $n=18$.\\ 
+\noindent \textit{Note 2:} This task corresponds to Exercise 4.1 in the course book. A similar assignment has been used by Lazebnik at UIUC and their course page gives also more detailed instructions: \url{http://slazebni.cs.illinois.edu/spring16/assignment2.html}.  
+\end{exercise}
+\fi
+
+\end{document}
