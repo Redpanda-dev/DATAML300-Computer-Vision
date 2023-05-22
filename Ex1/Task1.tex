@@ -1,0 +1,125 @@
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and export to LaTeX again.
+
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{epstopdf}
+\usepackage[table]{xcolor}
+\usepackage{matlab}
+
+\sloppy
+\epstopdfsetup{outdir=./}
+\graphicspath{ {./Task1_images/} }
+
+\begin{document}
+
+\begin{matlabcode}
+% Task 1. Homogeneous coordinates. (Pen & paper exercise) (1 point)
+
+% Converting points:
+% from cartesian -> homogeneous
+% x1 = (2, -1) -> (2, -1, 1)
+% x2 = (1, -2) -> (1, -2, 1)
+% x3 = (1, 1) -> (1, 1, 1)
+% x4 = (-1, 0) -> (-1, 0, 1)
+
+x1 = [2; -1;  1]
+\end{matlabcode}
+\begin{matlaboutput}
+x1 = 3x1    
+     2
+    -1
+     1
+
+\end{matlaboutput}
+\begin{matlabcode}
+x2 = [1; -2; 1]
+\end{matlabcode}
+\begin{matlaboutput}
+x2 = 3x1    
+     1
+    -2
+     1
+
+\end{matlaboutput}
+\begin{matlabcode}
+x3 = [1; 1;  1]
+\end{matlabcode}
+\begin{matlaboutput}
+x3 = 3x1    
+     1
+     1
+     1
+
+\end{matlaboutput}
+\begin{matlabcode}
+x4 = [-1; 0; 1]
+\end{matlabcode}
+\begin{matlaboutput}
+x4 = 3x1    
+    -1
+     0
+     1
+
+\end{matlaboutput}
+\begin{matlabcode}
+
+% Line(ij) = point(i) x point(j) (Cross product)
+
+l1 = cross(x1, x2)
+\end{matlabcode}
+\begin{matlaboutput}
+l1 = 3x1    
+     1
+    -1
+    -3
+
+\end{matlaboutput}
+\begin{matlabcode}
+l2 = cross(x3, x4)
+\end{matlabcode}
+\begin{matlaboutput}
+l2 = 3x1    
+     1
+    -2
+     1
+
+\end{matlaboutput}
+\begin{matlabcode}
+
+% point(kl) = Line(k) x Line(l) (Cross product)
+x = cross(l1,l2)
+\end{matlabcode}
+\begin{matlaboutput}
+x = 3x1    
+    -7
+    -4
+    -1
+
+\end{matlaboutput}
+\begin{matlabcode}
+
+% Conversion back to Cartesian
+% p = [u, v, w] -> (u/w, v/w)
+% Therefore:
+
+intersection_point = [x(1)/x(3), x(2)/x(3)]
+\end{matlabcode}
+\begin{matlaboutput}
+intersection_point = 1x2    
+     7     4
+
+\end{matlaboutput}
+\begin{matlabcode}
+
+\end{matlabcode}
+
+\end{document}

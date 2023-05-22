@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.ndimage import maximum_filter
-from scipy.ndimage.interpolation import map_coordinates
-from scipy.ndimage.filters import convolve as conv2
+from scipy.ndimage import map_coordinates
+from scipy.ndimage import convolve as conv2
 from skimage.io import imread
 from utils import gaussian2, maxinterp
 
@@ -153,6 +153,36 @@ for k in range(np.minimum(len(id_ssd), Nvis)):
 # in order to find the best matches (i.e. not ascending order as with SSD).
 
 ##-your-code-starts-here-##
+
+distmat = np.zeros((npts1, npts2))
+for i1 in range(npts1):
+    for i2 in range(npts2):
+        # Similarity measure for template matching SSD -> NCC can be done by:
+        # I = patches1[:,:,i1]
+        # T = patches2[:,:,i2]
+        #         I*T                          I*T          
+        # -----------------------   =   -----------------
+        # (sqrt(I^2))*(sqrt(T^2))        norm(I)*norm(T)  
+        I = patches1[:,:,i1]
+        T = patches2[:,:,i2]
+        distmat[i1, i2] = np.sum((I*T)/(np.linalg.norm(I)*np.linalg.norm(T)))
+
+# Compute pairs of patches that are mutually nearest neighbors according to the NCC measure
+nn1 = np.amax(distmat, axis=1)
+ids1 = np.argmax(distmat, axis=1)
+nn2 = np.amax(distmat, axis=0)
+ids2 = np.argmax(distmat, axis=0)
+
+pairs = []
+for k in range(npts1):
+    if k == ids2[ids1[k]]:
+        pairs.append(np.array([k, ids1[k], nn1[k]]))
+pairs = np.array(pairs)
+
+# Sort the mutually nearest neighbors based on the NCC
+# Sort the list in reverse order -> matches are sorted in descending order so that the best matches are found first
+sorted_ncc = np.sort(pairs[:,2], axis=0)[::-1]
+id_ncc = np.argsort(pairs[:,2], axis=0)[::-1]
 
 ##-your-code-ends-here-##
 

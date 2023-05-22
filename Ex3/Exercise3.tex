@@ -1,0 +1,192 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[12pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+%\usepackage{comment}
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+%\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+
+\usepackage[T1]{fontenc}
+\usepackage[font=footnotesize,labelfont=bf]{caption}
+\usepackage{color}
+\usepackage{graphicx}
+%\usepackage{subfigure}
+%\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{booktabs,array}
+\usepackage{etoolbox}
+\usepackage{import}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{fullpage}
+\usepackage{hyperref}
+
+\newenvironment{exercise}[2][Task]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\newcommand{\cv}{\mathbf{c}}
+\newcommand{\xv}{\mathbf{x}}
+\newcommand{\tv}{\mathbf{t}}
+\newcommand{\pv}{\mathbf{p}}
+\newcommand{\Km}{\mathbf{K}}
+\newcommand{\Tm}{\mathbf{T}}
+\newcommand{\Rm}{\mathbf{R}}
+\newcommand{\Mm}{\mathbf{M}}
+\newcommand{\IIm}{\mathbf{I}}
+\newcommand{\Wm}{\mathbf{W}}
+\newcommand{\Pm}{\mathbf{P}}
+\newcommand{\zerov}{\mathbf{0}}
+\DeclareMathOperator{\atan2}{atan2}
+\DeclareMathOperator{\trace}{trace}
+
+\newcommand{\Rspace}{\mathbb{R}}     %euclidean and projective spaces
+\newcommand{\muv}{\mathbf{\mu}}
+\newcommand{\Cov}{\mathbf{\Sigma}}
+\newcommand{\Am}{\mathbf{A}}
+
+\newcommand{\lv}{\mathbf{l}}
+\newcommand{\yv}{\mathbf{y}}
+\newcommand{\Cm}{\mathbf{C}}
+\newcommand{\Em}{\mathbf{E}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\uv}{\mathbf{u}}
+
+%\renewcommand{\thesection}{}% Remove section references...
+%\renewcommand{\thesubsection}{\arabic{subsection}}%... from subsections
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{DATA.ML.300 Computer Vision\\ Exercise Round 3}
+\date{\vspace{-5mm} March 18, 2019}
+%\author{The Author}
+\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+%\section{First section}
+
+%Your text goes here.
+\noindent For these exercises you will need Python and a webcam (task 3) which should be available on the university computers. Return your answers as a pdf along with your modified code to Moodle. Exercise points will be granted after a teaching assistant has checked your answers. Returns done before the solution session will result in maximum of 3 points, whereas returns after the session will result in maximum of 1 point.
+
+\noindent Load the file containing all the necessary data/code for the following tasks.
+\newline
+
+\noindent \textbf{Before continuing you have to install OpenCV library for Python. For TC303 computers, open command prompt by searching \textit{cmd} and use the command below to install the package (note that there are two dashes before \textit{user} and \textit{upgrade}).}
+\newline
+
+pip install --user --upgrade opencv-python
+\newline
+
+\noindent \textbf{Tasks 2-3 also require Tensorflow 2.0 (which comes with Keras built in) with GPU computing capabilities. Everything should be installed for TC303, but if you'd like to install them to your own machine check the instructions \href{https://www.tensorflow.org/install/gpu}{here}. \newline\newline Note: The SSD implementation used here is made for Tensorflow 1.x and as the university computers were recently updated to Tensorflow 2.0 (and Keras removed completely) the code has been refactored to work for at least task 3. You should therefore prepare for problems. Currently the code works
+at least on python 3.7 with tensorflow 2.3.0 and tensorflow-estimator 2.6.0}
+\newline
+
+\begin{exercise}{1}
+	HOG descriptors for people detection. (Programming exercise) (1 point)
+	
+	\noindent We'll start by implementing a simple people detector using Histogram of Oriented Gradients as descriptor for our detector. Open hog\_detector.py and follow the instructions written in the comments. \textbf{You only have to return your version of hog\_detector.py}
+	
+\end{exercise}
+
+\begin{exercise}{2} 
+Basics of SSD object detector. (Programming exercise) (1 point)
+
+\noindent We'll be looking at a CNN based object detector, Single Shot MultiBox Detector (SSD). The goal of this task is to learn the basics of SSD and deep learning implementation in Python.
+
+\noindent Open the SSD exercise folder, follow the steps below and write down your observations.
+\begin{enumerate}
+	\item We are using (a small portion of) the Udacity road traffic dataset as an example, where the target objects are vehicles and traffic lights. The dataset can be found in the \textit{datasets} directory and the target values can be found in the .csv files. What is the form the targets are presented in? What is the difference between training and validation datasets in a general sense? 
+	
+	\item Next we'll take a look at the general architecture of the model. The keras\_ssd7.py file implements a smaller version of the SSD detector. Open keras\_ssd7.py under the \textit{models}-directory, and locate the \textit{build\_model} function. Try to find where the first convolutional part (before the convolutional predictor layers) of the network is defined. How many convolutional "blocks" are there, and what kind of layers is each block build from?
+	
+	\item SSD has it's own loss function, defined in chapter 2.2 in the original publication. What are the two attributes this loss function observes? How are these defined (short explanation without any formulas is sufficient)? The publication can be found in the exercise folder or \href{https://arxiv.org/pdf/1512.02325.pdf}{here}.
+	
+	
+\end{enumerate}
+
+
+\end{exercise}
+
+\begin{exercise}{3}
+SSD300 for real-time object detection. (Programming exercise) (2 points)
+
+\noindent This time we'll be using a larger version of SSD with pretrained weights to implement real-time object detection for webcam feed. Webcams can be found in TC303. \textbf{Download the pretrained weights \href{https://drive.google.com/file/d/121-kCXaOHOkJE_Kf5lKcJvC_5q1fYb_q/view}{here} and save them to the \textit{weights folder}}. Follow the instructions in ssd300\_webcam.py and use the OpenCV documentation to find out how certain functions work. \textbf{Include a screenshot of the webcam feed with a detected object in your pdf, e.g. a monitor or a chair. Also return your version of ssd300\_webcam.py}
+
+\noindent If you are interested, you can also try the previous HOG detector for webcam feed.
+
+\end{exercise}
+
+
+
+
+\begin{comment}
+\begin{exercise}{3}
+Planar projective transformation.
+
+\noindent The equation of a line on a plane, $ax+by+c=0$, can be written as $\tilde{\mathbf{l}}^\top\tilde{\xv}=0$, where $\tilde{\mathbf{l}}=[a\ b\ c]^\top$ and $\tilde{\xv}$ are homogeneous coordinates for lines and points, respectively. Under a planar projective transformation, represented with an invertible $3\times 3$ matrix $\mathbf{H}$, points transform as
+\begin{equation*}
+\tilde{\xv}'=\mathbf{H}\tilde{\xv}.
+\end{equation*}
+\noindent 
+\textit{a)} Given the matrix $\mathbf{H}$ for transforming points, as defined above, define the line transformation (i.e.\ transformation that gives $\tilde{\mathbf{l}}'$ which is a transformed version of $\tilde{\mathbf{l}}$).
+\vspace{1mm}
+\\
+%\noindent
+\textit{b)} A projective invariant is a quantity which does not change its value in the transformation. Using the transformation rules for points and lines, show that two lines, $\tilde{\mathbf{l}}_1, \tilde{\mathbf{l}}_2$, and two points, $\tilde{\xv}_1, \tilde{\xv}_2$, not lying on the lines have the following invariant under projective transformation:
+\begin{equation*}
+I=\frac{(\tilde{\mathbf{l}}_1^\top\tilde{\xv}_1)(\tilde{\mathbf{l}}_2^\top\tilde{\xv}_2)}{(\tilde{\mathbf{l}}_1^\top\tilde{\xv}_2)(\tilde{\mathbf{l}}_2^\top\tilde{\xv}_1)}.
+\end{equation*}
+Why similar construction does not give projective invariants with fewer number of points or lines? \\
+\noindent (Note: This is one of the exercises from Chapter 2 of the book by Hartley and Zisserman.)
+\end{exercise}
+\end{comment}
+
+
+\end{document}

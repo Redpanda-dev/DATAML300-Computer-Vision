@@ -1,0 +1,204 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[12pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+
+\usepackage[T1]{fontenc}
+\usepackage[font=footnotesize,labelfont=bf]{caption}
+\usepackage{color}
+\usepackage{graphicx}
+%\usepackage{subfigure}
+%\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{booktabs,array}
+\usepackage{etoolbox}
+\usepackage{import}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{fullpage}
+\usepackage{url}
+
+\newenvironment{exercise}[2][Task]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\newenvironment{demo}[2][Demo]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\newcommand{\cv}{\mathbf{c}}
+\newcommand{\xv}{\mathbf{x}}
+\newcommand{\tv}{\mathbf{t}}
+\newcommand{\pv}{\mathbf{p}}
+\newcommand{\Km}{\mathbf{K}}
+\newcommand{\Tm}{\mathbf{T}}
+\newcommand{\Rm}{\mathbf{R}}
+\newcommand{\Mm}{\mathbf{M}}
+\newcommand{\IIm}{\mathbf{I}}
+\newcommand{\Wm}{\mathbf{W}}
+\newcommand{\Pm}{\mathbf{P}}
+\newcommand{\zerov}{\mathbf{0}}
+\DeclareMathOperator{\atan2}{atan2}
+\DeclareMathOperator{\trace}{trace}
+%\renewcommand{\thesection}{}% Remove section references...
+%\renewcommand{\thesubsection}{\arabic{subsection}}%... from subsections
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{DATA.ML.300 Computer Vision\\ Exercise Round 6}
+\date{\vspace{-5mm} February 13, 2021}
+%\author{The Author}
+\date{} % Activate to display a given date or no date (if empty),
+% otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+%\section{First section}
+
+%Your text goes here.
+\noindent For these exercises you will need Python which should be available on the university computers. Return your answers as a pdf along with your modified code to Moodle. Exercise points will be granted after a teaching assistant has checked your answers. Returns done before the solution session will result in maximum of 4 points, whereas returns after the session will result in maximum of 1 point. 
+\newline
+
+%\vspace{2.5mm}
+
+\begin{exercise}{1} 
+Fundamental Matrix and Essential Matrix (Pen \& paper) (1 point)
+
+\noindent 
+
+\noindent \textit{a)} For what purpose are these matrices used and what are their differences?
+
+\noindent \textit{b)} How can you derive essential matrix from fundamental matrix and what additional information you need in order to do that?
+
+\noindent \textit{c)} How many degrees of freedom does fundamental matrix have and why?
+
+\noindent \textit{d)} How many degrees of freedom does essential matrix have and why?
+
+\end{exercise}
+
+\begin{exercise}{2}
+Camera calibration. (Programming exercise) (1.5 points)
+
+\vspace{1mm}
+\noindent In this exercise you will need to implement the direct linear transform (DLT) method for camera calibration. The algorithm is described in the lecture slides. It is also presented in the book by Hartley \& Zisserman (Section 7.1 in the second edition).
+
+The calibration object is a bookshelf whose dimensions are known. That is, width of a shelf is 758 mm, depth is 295 mm, and height between shelves is 360 mm. 
+
+\vspace{1mm}
+\noindent Proceed as follows:
+\newline
+
+\noindent Run the script \texttt{cam\_calibration}. The corners of the bookshelf are already manually localized from the given two images and visualized by the script. See the comments in the source code.
+ Implement the missing function \texttt{camcalibDLT}, which should use the DLT algorithm described below.
+ 
+\begin{equation*}
+	\begin{pmatrix}0^\top & \mathbf{X_1}^\top & -y_1\mathbf{X_1}^\top\\
+				   \mathbf{X_1}^\top & 0^\top & -x_1\mathbf{X_1}^\top \\
+				   \dots & \dots & \dots\\
+				   0^\top & \mathbf{X_n}^\top & -y_n\mathbf{X_n}^\top\\
+				   \mathbf{X_n}^\top & 0^\top & -x_n\mathbf{X_n}^\top \\
+	 \end{pmatrix}
+	\begin{pmatrix}\mathbf{P_1} \\ \mathbf{P_2} \\ \mathbf{P_3} \end{pmatrix}
+	 = 0
+\end{equation*}
+Here $\mathbf{X_n}$ is the known 3D coordinate, and $x_n$ and $y_n$ are the known image projection coordinates. Let's denote the above equation as $\mathbf{A}\mathbf{p}=0$. The task is to find $\mathbf{p}$  minimizing $||\mathbf{Ap}||^2$ (homogeneous least squares).
+
+\newpage 
+\noindent The solution is given by the eigenvector of $\mathbf{A}^\top\mathbf{A}$ with the smallest eigenvalue.
+\newline
+
+\noindent After implementing the algorithm, both cameras should be calibrated correctly. Check the results visually.
+
+\noindent \textbf{Include both output images in your pdf, also return your version of the code.}
+
+\end{exercise}
+
+\vspace{2.5mm}
+%\noindent Tasks continue on the next page...
+%\newpage
+%\
+
+\begin{exercise}{3} Triangulation. (Programming exercise) (1.5 points)
+
+\vspace{1mm}
+\noindent In this exercise you will need to implement the linear triangulation method also described in the lecture slides.  (The method is also presented in the book by Hartley \& Zisserman.) You must again find a least-squares solution to a system of linear equations. In a similar manner as in exercise problem 1, it can be computed by solving the eigenvectors and eigenvalues of a real symmetric matrix.
+
+As illustrated by the script, the points that will be triangulated are the corner points of the picture on the cover of the course book. As a result of the triangulation we will get the coordinates of these corner points in the world coordinate frame. By computing the distances between the points, we can measure the width and height of the picture in millimeters.
+
+\vspace{1mm}
+\noindent Proceed as follows:
+\newline
+
+\noindent Run the script \texttt{triangulation\_task}.
+ The corners of the picture on the book cover are already manually localized from the given two images and visualized by the script. See the comments in the source code.
+ Your task is to implement the missing function \texttt{trianglin}.
+\newline
+ 
+\noindent Cross-product as a matrix multiplication can be written as
+\begin{equation*}
+\mathbf{a} \times \mathbf{b} = 
+\begin{pmatrix}0 & -a_z & a_y\\
+a_z & 0 & -a_x\\
+-a_y & a_x & 0\\
+\end{pmatrix}
+\begin{pmatrix}b_x \\ b_y \\ b_z \end{pmatrix}
+=[\mathbf{a}_\times]\mathbf{b}
+\end{equation*}
+
+\noindent The goal is to find the least squares solution to the two independent equations $[\mathbf{x}_{1\times}]\mathbf{P_1}\mathbf{X}=0$ and $[\mathbf{x}_{2\times}]\mathbf{P_2\mathbf{X}}=0$ in terms of $\mathbf{X}$. Start by calculating $[\mathbf{x}_{1\times}]\mathbf{P_1}$ and $[\mathbf{x}_{2\times}]\mathbf{P_2}$ and stack these vertically to acquire $\mathbf{A}$. This can then be used to calculate the least squares solution for the corresponding world coordinate $\mathbf{X}$ similarly as in task 1.
+\newline
+
+\noindent Triangulate the three given point correspondences and calculate the estimated width and height of the picture by computing the distances between triangulated world points.
+
+
+\noindent \textbf{Write the estimated width and height (printed by the program to the console) in your pdf, also return your version of the code.}
+\end{exercise}
+
+\end{document}
+
